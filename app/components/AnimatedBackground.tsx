@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -16,20 +15,25 @@ export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
+    const canvasElement = canvasRef.current;
 
-    if (!canvas || !context) return;
+    if (!canvasElement) return;
 
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
+    const ctx = canvasElement.getContext("2d");
+
+    if (!ctx) return;
+
+    // Referências validadas para uso nas funções internas.
+    const canvas: HTMLCanvasElement = canvasElement;
+    const context: CanvasRenderingContext2D = ctx;
 
     let width = 0;
     let height = 0;
     let pixelRatio = 1;
     let particles: Particle[] = [];
     let animationFrame = 0;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const pointer = {
       x: -1000,
@@ -41,10 +45,7 @@ export default function AnimatedBackground() {
 
     function createParticles() {
       const area = width * height;
-      const count = Math.max(
-        22,
-        Math.min(85, Math.floor(area / 18000))
-      );
+      const count = Math.max(22, Math.min(85, Math.floor(area / 18000)));
 
       particles = Array.from({ length: count }, () => {
         const color = colors[Math.floor(Math.random() * colors.length)];
@@ -134,13 +135,7 @@ export default function AnimatedBackground() {
 
       for (const particle of particles) {
         context.beginPath();
-        context.arc(
-          particle.x,
-          particle.y,
-          particle.radius,
-          0,
-          Math.PI * 2
-        );
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
 
         context.fillStyle = `rgba(${particle.color}, 0.85)`;
         context.shadowColor = `rgb(${particle.color})`;
@@ -199,10 +194,7 @@ export default function AnimatedBackground() {
 
   return (
     <div className="site-background" aria-hidden="true">
-      <canvas
-        ref={canvasRef}
-        className="site-background__canvas"
-      />
+      <canvas ref={canvasRef} className="site-background__canvas" />
     </div>
   );
 }
