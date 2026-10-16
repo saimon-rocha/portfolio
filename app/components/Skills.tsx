@@ -1,143 +1,404 @@
-"use client";
+const technologies = {
+  frontend: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "JavaScript",
+    "HTML/CSS",
+    "Tailwind CSS",
+  ],
+  backend: ["Node.js", "PHP", "Java"],
+  database: ["PostgreSQL", "SQL"],
+  processing: ["Middleware", "IA"],
+  infrastructure: ["Git", "Docker", "Linux", "Cloud", "Deploy", "CI/CD"],
+};
 
-import { Code2, Server, Database, Wrench, ArrowUpRight } from "lucide-react";
+function TechNode({
+  x,
+  y,
+  width,
+  height,
+  title,
+  subtitle,
+  variant,
+}: {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  title: string;
+  subtitle: string;
+  variant: "lime" | "cyan";
+}) {
+  return (
+    <g className={`skills-node skills-node-${variant}`}>
+      <rect x={x} y={y} width={width} height={height} rx="16" />
 
-const skillGroups = [
-  {
-    id: "01",
-    title: "Frontend",
-    description: "Interfaces modernas, responsivas e acessíveis.",
-    icon: Code2,
-    skills: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS"],
-  },
-  {
-    id: "02",
-    title: "Backend",
-    description: "APIs, regras de negócio e processamento de dados.",
-    icon: Server,
-    skills: ["Node.js", "APIs REST"],
-  },
-  {
-    id: "03",
-    title: "Ferramentas & Dados",
-    description: "Versionamento, consultas e organização de código.",
-    icon: Database,
-    skills: ["Git", "GitHub", "SQL"],
-  },
-];
+      <circle className="skills-status" cx={x + width - 18} cy={y + 18} r="3" />
+
+      <text
+        x={x + width / 2}
+        y={y + height / 2 - 4}
+        className="skills-node-title"
+      >
+        {title}
+      </text>
+
+      <text
+        x={x + width / 2}
+        y={y + height / 2 + 20}
+        className="skills-node-subtitle"
+      >
+        {subtitle}
+      </text>
+    </g>
+  );
+}
+
+function Packet({
+  path,
+  variant,
+  duration = "2.5s",
+}: {
+  path: string;
+  variant: "lime" | "cyan";
+  duration?: string;
+}) {
+  return (
+    <circle r="4" className={`skills-packet skills-packet-${variant}`}>
+      <animateMotion dur={duration} repeatCount="indefinite" path={path} />
+    </circle>
+  );
+}
+
+function DesktopArchitecture() {
+  const databaseToApi = "M250 205 C305 205 365 205 420 205";
+  const apiToDatabase = "M420 250 C365 250 305 250 250 250";
+  const apiToFrontend = "M660 205 C720 205 790 205 850 205";
+  const frontendToApi = "M850 250 C790 250 720 250 660 250";
+  const apiToProcessing = "M470 285 C470 305 470 320 470 340";
+  const processingToApi = "M610 340 C610 320 610 305 610 285";
+
+  return (
+    <svg
+      viewBox="0 0 1100 570"
+      className="skills-diagram skills-diagram-desktop"
+      role="img"
+      aria-labelledby="skills-desktop-title skills-desktop-desc"
+    >
+      <title id="skills-desktop-title">
+        Arquitetura do ecossistema tecnológico
+      </title>
+      <desc id="skills-desktop-desc">
+        O banco de dados se comunica exclusivamente com a API principal. A API
+        se comunica com o frontend e com o módulo de middleware e IA. A
+        infraestrutura oferece suporte aos componentes.
+      </desc>
+
+      <defs>
+        <linearGradient id="skills-support-gradient" x1="0" x2="1">
+          <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.15" />
+          <stop offset="50%" stopColor="#a3e635" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.15" />
+        </linearGradient>
+      </defs>
+
+      {/* Database ↔ API */}
+      <path className="skills-wire skills-wire-cyan" d={databaseToApi} />
+      <path className="skills-wire skills-wire-cyan" d={apiToDatabase} />
+
+      {/* API ↔ Frontend */}
+      <path className="skills-wire skills-wire-lime" d={apiToFrontend} />
+      <path className="skills-wire skills-wire-lime" d={frontendToApi} />
+
+      {/* API ↔ Middleware / IA */}
+      <path className="skills-wire skills-wire-lime" d={apiToProcessing} />
+      <path className="skills-wire skills-wire-cyan" d={processingToApi} />
+
+      {/* Labels in the gaps between nodes */}
+      <g className="skills-wire-label">
+        <text x="335" y="192" textAnchor="middle">
+          SQL · Queries
+        </text>
+        <text x="335" y="270" textAnchor="middle">
+          Dados · Respostas
+        </text>
+        <text x="755" y="192" textAnchor="middle">
+          HTTP · REST
+        </text>
+        <text x="755" y="270" textAnchor="middle">
+          Requisições · Respostas
+        </text>
+        <text x="540" y="318" textAnchor="middle">
+          Serviços
+        </text>
+      </g>
+
+      {/* Animated data packets */}
+      <Packet path={databaseToApi} variant="cyan" />
+      <Packet path={apiToDatabase} variant="lime" duration="2.9s" />
+      <Packet path={apiToFrontend} variant="lime" duration="2.3s" />
+      <Packet path={frontendToApi} variant="cyan" duration="2.8s" />
+      <Packet path={apiToProcessing} variant="lime" duration="1.8s" />
+      <Packet path={processingToApi} variant="cyan" duration="2s" />
+
+      {/* Database */}
+      <TechNode
+        x={40}
+        y={170}
+        width={210}
+        height={115}
+        title="DATABASE"
+        subtitle="PostgreSQL · SQL"
+        variant="cyan"
+      />
+
+      {/* Main API */}
+      <TechNode
+        x={420}
+        y={170}
+        width={240}
+        height={115}
+        title="API PRINCIPAL"
+        subtitle="Node.js · PHP · Java"
+        variant="lime"
+      />
+
+      {/* Frontend */}
+      <TechNode
+        x={850}
+        y={170}
+        width={210}
+        height={115}
+        title="FRONTEND"
+        subtitle="React · Next.js"
+        variant="lime"
+      />
+
+      {/* Secondary processing module */}
+      <TechNode
+        x={420}
+        y={340}
+        width={240}
+        height={85}
+        title="MIDDLEWARE · IA"
+        subtitle="Processamento e serviços"
+        variant="cyan"
+      />
+
+      {/* Infrastructure is a support layer, not a request hop */}
+      <g className="skills-infrastructure">
+        <path
+          d="M145 285 V460 M540 425 V460 M955 285 V460"
+          className="skills-support-line"
+        />
+        <rect
+          x="40"
+          y="460"
+          width="1020"
+          height="78"
+          rx="14"
+          className="skills-infrastructure-panel"
+        />
+        <path
+          d="M60 461 H1040"
+          stroke="url(#skills-support-gradient)"
+          strokeWidth="2"
+        />
+        <text
+          x="550"
+          y="490"
+          className="skills-infra-title"
+          textAnchor="middle"
+        >
+          INFRAESTRUTURA
+        </text>
+        <text
+          x="550"
+          y="515"
+          className="skills-infra-subtitle"
+          textAnchor="middle"
+        >
+          Git · Docker · Linux · Cloud · Deploy · CI/CD
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+function MobileArchitecture() {
+  const frontendToApi = "M180 140 L180 205";
+  const apiToFrontend = "M198 205 L198 140";
+  const apiToDatabase = "M160 315 L160 385";
+  const databaseToApi = "M200 385 L200 315";
+  const apiToProcessing = "M230 285 C310 320 310 485 230 535";
+  const processingToApi = "M210 535 C280 485 280 320 210 285";
+
+  return (
+    <svg
+      viewBox="0 0 360 850"
+      className="skills-diagram skills-diagram-mobile"
+      role="img"
+      aria-labelledby="skills-mobile-title skills-mobile-desc"
+    >
+      <title id="skills-mobile-title">
+        Arquitetura tecnológica em formato vertical
+      </title>
+      <desc id="skills-mobile-desc">
+        O frontend e o banco de dados se comunicam com a API principal. A API
+        também se comunica com middleware e IA. A infraestrutura aparece como
+        camada de suporte.
+      </desc>
+
+      {/* Frontend ↔ API */}
+      <path className="skills-wire skills-wire-lime" d={frontendToApi} />
+      <path className="skills-wire skills-wire-cyan" d={apiToFrontend} />
+
+      {/* API ↔ Database */}
+      <path className="skills-wire skills-wire-cyan" d={apiToDatabase} />
+      <path className="skills-wire skills-wire-lime" d={databaseToApi} />
+
+      {/* API ↔ Secondary module, routed around the database */}
+      <path className="skills-wire skills-wire-lime" d={apiToProcessing} />
+      <path className="skills-wire skills-wire-cyan" d={processingToApi} />
+
+      <Packet path={frontendToApi} variant="lime" duration="1.8s" />
+      <Packet path={apiToFrontend} variant="cyan" duration="2s" />
+      <Packet path={apiToDatabase} variant="cyan" duration="2.2s" />
+      <Packet path={databaseToApi} variant="lime" duration="2.5s" />
+      <Packet path={apiToProcessing} variant="lime" duration="3s" />
+      <Packet path={processingToApi} variant="cyan" duration="3.2s" />
+
+      <TechNode
+        x={35}
+        y={35}
+        width={290}
+        height={105}
+        title="FRONTEND"
+        subtitle="React · Next.js · TypeScript"
+        variant="lime"
+      />
+
+      <TechNode
+        x={35}
+        y={205}
+        width={290}
+        height={110}
+        title="API PRINCIPAL"
+        subtitle="Node.js · PHP · Java"
+        variant="lime"
+      />
+
+      <TechNode
+        x={35}
+        y={385}
+        width={290}
+        height={105}
+        title="DATABASE"
+        subtitle="PostgreSQL · SQL"
+        variant="cyan"
+      />
+
+      <TechNode
+        x={35}
+        y={535}
+        width={290}
+        height={90}
+        title="MIDDLEWARE · IA"
+        subtitle="Processamento e serviços"
+        variant="cyan"
+      />
+
+      {/* Infrastructure support layer */}
+      <g className="skills-infrastructure">
+        <path d="M180 625 V675" className="skills-support-line" />
+        <rect
+          x="20"
+          y="675"
+          width="320"
+          height="130"
+          rx="14"
+          className="skills-infrastructure-panel"
+        />
+        <path
+          d="M40 676 H320"
+          stroke="url(#skills-support-gradient)"
+          strokeWidth="2"
+        />
+        <text
+          x="180"
+          y="710"
+          className="skills-infra-title"
+          textAnchor="middle"
+        >
+          INFRAESTRUTURA
+        </text>
+        <text
+          x="180"
+          y="741"
+          className="skills-infra-subtitle"
+          textAnchor="middle"
+        >
+          Git · Docker · Linux
+        </text>
+        <text
+          x="180"
+          y="764"
+          className="skills-infra-subtitle"
+          textAnchor="middle"
+        >
+          Cloud · Deploy · CI/CD
+        </text>
+      </g>
+    </svg>
+  );
+}
 
 export default function Skills() {
   return (
-    <section
-      id="habilidades"
-      className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-20 sm:py-24"
-    >
-      {/* Cabeçalho */}
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-        <div className="max-w-2xl">
-          <div className="mb-4 flex items-center gap-3">
-            <span className="h-px w-8 bg-lime-400" />
-            <p className="font-mono text-xs uppercase tracking-[0.22em] text-lime-400">
-              Conhecimentos técnicos
-            </p>
-          </div>
+    <section id="skills" className="skills-section">
+      <div className="skills-container">
+        <header className="skills-header">
+          <span className="skills-eyebrow">
+            <span className="skills-eyebrow-dot" />
+            STACK & ARQUITETURA
+          </span>
 
-          <h2 className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl">
-            Tecnologias que utilizo
+          <h2 className="skills-heading">
+            Meu ecossistema <span>tecnológico.</span>
           </h2>
 
-          <p className="mt-4 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base">
-            Ferramentas que utilizo para desenvolver interfaces, construir
-            aplicações e resolver problemas com código.
+          <p className="skills-description">
+            Tecnologias e componentes que utilizo para construir aplicações,
+            conectar serviços e estruturar soluções.
+          </p>
+        </header>
+
+        <div className="skills-architecture">
+          <div className="skills-legend" aria-label="Legenda do diagrama">
+            <span>
+              <i className="skills-legend-dot skills-legend-lime" />
+              Aplicação
+            </span>
+            <span>
+              <i className="skills-legend-dot skills-legend-cyan" />
+              Dados e serviços
+            </span>
+            <span>
+              <i className="skills-legend-line" />
+              Comunicação bidirecional
+            </span>
+          </div>
+
+          <DesktopArchitecture />
+          <MobileArchitecture />
+
+          <p className="skills-caption">
+            Representação conceitual das tecnologias e de suas relações. A
+            implementação pode variar conforme o projeto.
           </p>
         </div>
       </div>
-
-      {/* Categorias */}
-      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((group) => {
-          const Icon = group.icon;
-
-          return (
-            <article
-              key={group.id}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 transition duration-300 hover:-translate-y-1 hover:border-lime-400/30 hover:bg-zinc-900/70 sm:p-6"
-            >
-              {/* Brilho discreto */}
-              <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-lime-400/[0.04] blur-2xl transition group-hover:bg-lime-400/[0.09]" />
-
-              <div className="relative flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-lime-400/15 bg-lime-400/[0.07] text-lime-400 transition group-hover:border-lime-400/30 group-hover:bg-lime-400/10">
-                  <Icon size={21} strokeWidth={1.7} />
-                </div>
-
-                <span className="font-mono text-xs text-zinc-600">
-                  {group.id}
-                </span>
-              </div>
-
-              <div className="relative mt-6">
-                <h3 className="text-lg font-semibold tracking-tight text-zinc-100">
-                  {group.title}
-                </h3>
-
-                <p className="mt-2 min-h-12 text-sm leading-6 text-zinc-400">
-                  {group.description}
-                </p>
-              </div>
-
-              <div className="my-5 h-px bg-zinc-800/80" />
-
-              <div className="relative flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-300 transition hover:border-lime-400/30 hover:text-lime-300 sm:text-sm"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-auto flex items-center gap-2 pt-6 text-xs text-zinc-500">
-                <span className="h-1.5 w-1.5 rounded-full bg-lime-400" />
-                Área de conhecimento
-              </div>
-            </article>
-          );
-        })}
-      </div>
-
-      {/* Chamada para conhecer os projetos */}
-      <a
-        href="https://github.com/saimon-rocha"
-        target="_blank"
-        rel="noreferrer"
-        className="group mt-6 flex flex-col gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 transition hover:border-lime-400/30 sm:flex-row sm:items-center sm:justify-between sm:p-6"
-      >
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-zinc-800 text-zinc-200 transition group-hover:text-lime-400">
-            <Wrench size={21} />
-          </div>
-
-          <div>
-            <h3 className="font-medium text-zinc-100">
-              Quer ver essas tecnologias na prática?
-            </h3>
-            <p className="mt-1 text-sm text-zinc-400">
-              Explore meus projetos, repositórios e código no GitHub.
-            </p>
-          </div>
-        </div>
-
-        <span className="inline-flex items-center gap-2 text-sm font-medium text-lime-400">
-          Explorar projetos
-          <ArrowUpRight
-            size={17}
-            className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-          />
-        </span>
-      </a>
     </section>
   );
 }
