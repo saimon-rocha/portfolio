@@ -92,17 +92,19 @@ function SectionHeading({
   description?: string;
 }) {
   return (
-    <div className="mb-8 max-w-2xl">
-      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-lime-400">
+    <div className="mb-7 max-w-2xl sm:mb-8">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-lime-400 sm:text-sm sm:tracking-[0.2em]">
         {eyebrow}
       </p>
 
-      <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+      <h2 className="break-words text-2xl font-semibold tracking-tight text-zinc-100 sm:text-3xl">
         {title}
       </h2>
 
       {description && (
-        <p className="mt-4 leading-7 text-zinc-400">{description}</p>
+        <p className="mt-4 text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
+          {description}
+        </p>
       )}
     </div>
   );
@@ -114,7 +116,7 @@ function TechList({ items }: { items: string[] }) {
       {items.map((item) => (
         <span
           key={item}
-          className="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-300"
+          className="max-w-full break-words rounded-lg border border-zinc-800 bg-zinc-900 px-2.5 py-2 text-xs text-zinc-300 sm:px-3 sm:text-sm"
         >
           {item}
         </span>
@@ -125,70 +127,70 @@ function TechList({ items }: { items: string[] }) {
 
 export default function ChecklistProjectPage() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100">
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-14">
+    <main className="min-h-screen overflow-x-clip bg-zinc-950 text-zinc-100">
+      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
         {/* Navegação */}
         <Link
           href="/#projetos"
-          className="inline-flex items-center gap-2 text-sm text-zinc-400 transition hover:text-lime-400"
+          className="inline-flex min-h-11 items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-lime-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
         >
           <span aria-hidden="true">←</span>
           Voltar para projetos
         </Link>
 
         {/* Apresentação */}
-        <section className="grid gap-10 pb-16 pt-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-14 lg:pb-24 lg:pt-20">
-          <div>
+        <section className="grid min-w-0 grid-cols-1 gap-8 pb-14 pt-8 sm:gap-10 sm:pb-16 sm:pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-12 lg:pb-24 lg:pt-16">
+          <div className="min-w-0">
             <span className="inline-flex rounded-full border border-lime-400/20 bg-lime-400/10 px-3 py-1.5 text-xs font-medium text-lime-300">
               Projeto full-stack
             </span>
 
-            <h1 className="mt-6 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 max-w-3xl break-words text-3xl font-bold leading-tight tracking-tight text-white sm:mt-6 sm:text-5xl lg:text-6xl">
               Sistema Checklist{" "}
               <span className="text-lime-400">Bomba Medidora</span>
             </h1>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-400 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-sm leading-7 text-zinc-400 sm:mt-6 sm:text-lg sm:leading-8">
               Aplicação web desenvolvida para apoiar o gerenciamento operacional
               de postos de combustíveis, digitalizando checklists, ensaios de
               aferição, cadastros administrativos e consultas de registros.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap sm:mt-8">
               <a
                 href="#funcionalidades"
-                className="rounded-lg bg-lime-400 px-5 py-3 text-sm font-semibold text-zinc-950 transition hover:bg-lime-300"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-lime-400 px-5 py-3 text-center text-sm font-semibold text-zinc-950 transition-colors hover:bg-lime-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
               >
                 Explorar funcionalidades
               </a>
 
               <a
                 href="#tecnologias"
-                className="rounded-lg border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-200 transition hover:border-zinc-500 hover:bg-zinc-900"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-zinc-700 px-5 py-3 text-center text-sm font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400"
               >
                 Ver tecnologias
               </a>
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm text-zinc-500">
+            <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-zinc-500 sm:mt-10 sm:gap-x-4 sm:text-sm">
               <span>Aplicação web</span>
-              <span>•</span>
+              <span aria-hidden="true">•</span>
               <span>API REST</span>
-              <span>•</span>
+              <span aria-hidden="true">•</span>
               <span>Relatórios em PDF</span>
             </div>
           </div>
 
-          {/* Captura de tela do projeto */}
-          <div className="relative">
-            <div className="absolute -inset-3 rounded-3xl bg-lime-400/5 blur-2xl" />
+          {/* Captura de tela */}
+          <div className="relative mx-auto w-full min-w-0 max-w-2xl lg:max-w-none">
+            <div className="absolute -inset-2 rounded-3xl bg-lime-400/5 blur-xl sm:-inset-3 sm:blur-2xl" />
 
-            <div className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 p-2 shadow-2xl">
-              <div className="flex items-center gap-2 border-b border-zinc-800 px-3 py-3">
-                <span className="size-2.5 rounded-full bg-zinc-700" />
-                <span className="size-2.5 rounded-full bg-zinc-700" />
-                <span className="size-2.5 rounded-full bg-zinc-700" />
-                <span className="ml-3 text-xs text-zinc-500">
+            <div className="relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 p-1.5 shadow-2xl sm:rounded-2xl sm:p-2">
+              <div className="flex min-w-0 items-center gap-1.5 border-b border-zinc-800 px-2 py-3 sm:gap-2 sm:px-3">
+                <span className="size-2 shrink-0 rounded-full bg-zinc-700 sm:size-2.5" />
+                <span className="size-2 shrink-0 rounded-full bg-zinc-700 sm:size-2.5" />
+                <span className="size-2 shrink-0 rounded-full bg-zinc-700 sm:size-2.5" />
+                <span className="ml-1 truncate text-[10px] text-zinc-500 sm:ml-2 sm:text-xs">
                   Sistema Checklist Bomba Medidora
                 </span>
               </div>
@@ -199,40 +201,40 @@ export default function ChecklistProjectPage() {
                 width={1600}
                 height={900}
                 priority
+                sizes="(max-width: 1023px) calc(100vw - 32px), 40vw"
                 className="h-auto w-full rounded-b-lg object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
           </div>
         </section>
 
         {/* Contexto */}
-        <section className="border-t border-zinc-800 py-16 sm:py-20">
+        <section className="border-t border-zinc-800 py-12 sm:py-16 lg:py-20">
           <SectionHeading
             eyebrow="Visão geral"
             title="Organização de processos operacionais"
             description="O sistema reúne operações administrativas e registros de inspeção em uma aplicação web integrada a uma API e a um banco de dados relacional."
           />
 
-          <div className="grid gap-5 md:grid-cols-2">
-            <article className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 sm:p-8">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5">
+            <article className="min-w-0 rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 sm:p-8">
               <p className="text-sm font-medium text-lime-400">O contexto</p>
-              <h3 className="mt-3 text-xl font-semibold text-white">
+              <h3 className="mt-3 text-lg font-semibold text-white sm:text-xl">
                 Centralizar informações
               </h3>
-              <p className="mt-4 leading-7 text-zinc-400">
+              <p className="mt-4 text-sm leading-7 text-zinc-400 sm:text-base">
                 Checklists, ensaios, cadastros e consultas precisam estar
                 organizados para facilitar o registro e o acompanhamento das
                 atividades operacionais.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 sm:p-8">
+            <article className="min-w-0 rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 sm:p-8">
               <p className="text-sm font-medium text-lime-400">A solução</p>
-              <h3 className="mt-3 text-xl font-semibold text-white">
+              <h3 className="mt-3 text-lg font-semibold text-white sm:text-xl">
                 Fluxos digitais integrados
               </h3>
-              <p className="mt-4 leading-7 text-zinc-400">
+              <p className="mt-4 text-sm leading-7 text-zinc-400 sm:text-base">
                 A aplicação oferece formulários estruturados, gerenciamento
                 administrativo, consulta de registros e geração de relatórios em
                 PDF a partir dos dados disponíveis.
@@ -244,7 +246,7 @@ export default function ChecklistProjectPage() {
         {/* Funcionalidades */}
         <section
           id="funcionalidades"
-          className="scroll-mt-10 border-t border-zinc-800 py-16 sm:py-20"
+          className="scroll-mt-24 border-t border-zinc-800 py-12 sm:py-16 lg:py-20"
         >
           <SectionHeading
             eyebrow="Funcionalidades"
@@ -252,17 +254,17 @@ export default function ChecklistProjectPage() {
             description="Principais módulos identificados na documentação técnica do front-end e da API."
           />
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {features.map((feature) => (
               <article
                 key={feature.number}
-                className="group rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 transition hover:border-lime-400/40 hover:bg-zinc-900"
+                className="group min-w-0 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 transition-colors hover:border-lime-400/40 hover:bg-zinc-900 sm:p-6"
               >
                 <span className="text-sm font-semibold text-lime-400">
                   {feature.number}
                 </span>
 
-                <h3 className="mt-5 text-lg font-semibold text-white">
+                <h3 className="mt-4 break-words text-lg font-semibold text-white sm:mt-5">
                   {feature.title}
                 </h3>
 
@@ -275,26 +277,26 @@ export default function ChecklistProjectPage() {
         </section>
 
         {/* Arquitetura */}
-        <section className="border-t border-zinc-800 py-16 sm:py-20">
+        <section className="border-t border-zinc-800 py-12 sm:py-16 lg:py-20">
           <SectionHeading
             eyebrow="Arquitetura"
             title="Como as partes se conectam"
             description="Visão simplificada da arquitetura descrita na documentação técnica."
           />
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {architecture.map((layer, index) => (
-              <div key={layer.name} className="relative">
-                <article className="h-full rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
+              <div key={layer.name} className="relative min-w-0">
+                <article className="h-full rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 sm:p-6">
                   <span className="text-xs font-medium uppercase tracking-widest text-lime-400">
                     Camada 0{index + 1}
                   </span>
 
-                  <h3 className="mt-4 text-xl font-semibold text-white">
+                  <h3 className="mt-4 break-words text-xl font-semibold text-white">
                     {layer.name}
                   </h3>
 
-                  <p className="mt-2 text-sm font-medium text-zinc-300">
+                  <p className="mt-2 break-words text-sm font-medium text-zinc-300">
                     {layer.technology}
                   </p>
 
@@ -315,7 +317,7 @@ export default function ChecklistProjectPage() {
             ))}
           </div>
 
-          <p className="mt-5 text-sm leading-6 text-zinc-500">
+          <p className="mt-5 text-sm leading-7 text-zinc-500">
             O front-end consome os endpoints da API por HTTP. A API utiliza o
             Sequelize para acessar o PostgreSQL. A validação das permissões e a
             persistência são responsabilidades do back-end.
@@ -325,7 +327,7 @@ export default function ChecklistProjectPage() {
         {/* Tecnologias */}
         <section
           id="tecnologias"
-          className="scroll-mt-10 border-t border-zinc-800 py-16 sm:py-20"
+          className="scroll-mt-24 border-t border-zinc-800 py-12 sm:py-16 lg:py-20"
         >
           <SectionHeading
             eyebrow="Stack tecnológica"
@@ -333,31 +335,31 @@ export default function ChecklistProjectPage() {
             description="Bibliotecas e ferramentas identificadas na documentação fornecida."
           />
 
-          <div className="grid gap-8 md:grid-cols-2">
-            <article className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 sm:p-8">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 sm:gap-8">
+            <article className="min-w-0 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 sm:p-8">
               <h3 className="mb-5 text-lg font-semibold text-white">
                 Front-end
               </h3>
               <TechList items={frontendTech} />
-              <p className="mt-5 text-sm leading-6 text-zinc-500">
+              <p className="mt-5 text-sm leading-7 text-zinc-500">
                 Interface, navegação, formulários, integração HTTP e geração de
                 documentos no navegador.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 sm:p-8">
+            <article className="min-w-0 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 sm:p-8">
               <h3 className="mb-5 text-lg font-semibold text-white">
                 Back-end
               </h3>
               <TechList items={backendTech} />
-              <p className="mt-5 text-sm leading-6 text-zinc-500">
+              <p className="mt-5 text-sm leading-7 text-zinc-500">
                 API, autenticação, regras de negócio, acesso aos dados e
                 persistência relacional.
               </p>
             </article>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+          <div className="mt-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 sm:p-6">
             <h3 className="text-lg font-semibold text-white">
               Documentos e integrações
             </h3>
@@ -366,7 +368,7 @@ export default function ChecklistProjectPage() {
                 items={["jsPDF", "jspdf-autotable", "PDFKit", "ViaCEP", "JWT"]}
               />
             </div>
-            <p className="mt-4 text-sm leading-6 text-zinc-500">
+            <p className="mt-4 text-sm leading-7 text-zinc-500">
               jsPDF e jspdf-autotable são utilizados na geração de PDFs no
               front-end; PDFKit está listado no back-end. ViaCEP auxilia na
               consulta de endereços a partir do CEP.
@@ -375,7 +377,7 @@ export default function ChecklistProjectPage() {
         </section>
 
         {/* Aprendizados */}
-        <section className="border-t border-zinc-800 py-16 sm:py-20">
+        <section className="border-t border-zinc-800 py-12 sm:py-16 lg:py-20">
           <SectionHeading
             eyebrow="Engenharia de software"
             title="Desafios técnicos envolvidos"
@@ -390,33 +392,33 @@ export default function ChecklistProjectPage() {
               "Organizar a consulta de registros e a geração de documentos a partir dos dados disponíveis.",
               "Separar as responsabilidades da interface, da API e da camada de persistência.",
             ].map((item) => (
-              <li key={item} className="flex gap-3 text-zinc-300">
-                <span aria-hidden="true" className="mt-1 text-lime-400">
+              <li key={item} className="flex min-w-0 gap-3 text-sm text-zinc-300 sm:text-base">
+                <span aria-hidden="true" className="mt-1 shrink-0 text-lime-400">
                   ✓
                 </span>
-                <span className="leading-7">{item}</span>
+                <span className="min-w-0 leading-7">{item}</span>
               </li>
             ))}
           </ul>
         </section>
 
         {/* Encerramento */}
-        <section className="border-t border-zinc-800 pt-12 sm:pt-16">
-          <div className="rounded-3xl border border-lime-400/20 bg-gradient-to-br from-lime-400/10 via-zinc-900 to-zinc-900 p-7 sm:p-10 lg:p-12">
+        <section className="border-t border-zinc-800 pt-10 sm:pt-16">
+          <div className="rounded-2xl border border-lime-400/20 bg-gradient-to-br from-lime-400/10 via-zinc-900 to-zinc-900 p-5 sm:rounded-3xl sm:p-10 lg:p-12">
             <p className="text-sm font-medium text-lime-400">Mais projetos</p>
 
-            <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            <h2 className="mt-4 max-w-2xl break-words text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               Conheça os outros projetos do portfólio
             </h2>
 
-            <p className="mt-4 max-w-xl leading-7 text-zinc-400">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base">
               Explore outras aplicações, decisões técnicas e soluções
               desenvolvidas.
             </p>
 
             <Link
               href="/#projetos"
-              className="mt-7 inline-flex rounded-lg bg-lime-400 px-5 py-3 text-sm font-semibold text-zinc-950 transition hover:bg-lime-300"
+              className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-lime-400 px-5 py-3 text-center text-sm font-semibold text-zinc-950 transition-colors hover:bg-lime-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-400 min-[420px]:w-auto"
             >
               Voltar ao portfólio →
             </Link>

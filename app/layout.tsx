@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,15 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+      <body className="min-h-screen font-sans">
+        <AnimatedBackground />
+
+        <div className="relative z-10 flex min-h-screen flex-col">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

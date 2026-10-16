@@ -2,7 +2,6 @@
 
 :root {
   color-scheme: dark;
-
   --background: #09090b;
   --foreground: #fafafa;
 }
@@ -14,15 +13,79 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  min-height: 100%;
+  background: var(--background);
 }
 
 body {
+  min-height: 100vh;
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(163 230 53 / 9%), transparent 55%),
+    radial-gradient(ellipse at 90% 80%, rgb(56 189 248 / 7%), transparent 45%),
+    #09090b;
+}
+
+.site-background__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0.95;
+}
+
+/* Mantém o fundo estático quando o usuário reduz animações. */
+@media (prefers-reduced-motion: reduce) {
+  .site-background__canvas {
+    opacity: 0.65;
+  }
+}
+
+/* Cards interativos */
+.project-card {
+  position: relative;
+  border: 1px solid rgb(63 63 70 / 70%);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.project-card:focus-within {
+  border-color: rgb(163 230 53 / 55%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgb(163 230 53 / 55%);
+    box-shadow: 0 12px 32px rgb(0 0 0 / 18%);
+  }
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  .site-background::before {
+    animation: none;
+    will-change: auto;
+  }
+
+  .project-card {
+    transition: none;
+  }
+
+  .project-card:hover {
+    transform: none;
+  }
 }
