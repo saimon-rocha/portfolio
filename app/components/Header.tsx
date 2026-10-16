@@ -6,7 +6,7 @@ export default function Header() {
         className="text-lg font-bold tracking-tight"
         aria-label="Saimon — início"
       >
-        saimon<span className="text-lime-400">.</span>
+        Saimon A.S Rocha<span className="text-lime-400">.</span>
       </a>
 
       <nav
@@ -16,7 +16,9 @@ export default function Header() {
         <a href="#projetos" className="transition hover:text-white">
           Projetos
         </a>
-
+        <a href="#habilidades" className="transition hover:text-white">
+          Habilidades
+        </a>
         <a href="#sobre" className="transition hover:text-white">
           Sobre
         </a>
