@@ -296,6 +296,10 @@ export default function AnimatedBackground() {
     function handlePointerEnd(event: PointerEvent) {
       if (event.pointerType === "touch") {
         pointer.active = false;
+        pointer.x = -1000;
+        pointer.y = -1000;
+        pointer.targetX = -1000;
+        pointer.targetY = -1000;
       }
     }
 
