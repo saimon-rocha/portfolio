@@ -96,6 +96,7 @@ export default function AnimatedBackground() {
     }
 
     // Ajusta o canvas quando a janela muda de tamanho.
+
     function resizeCanvas() {
       const currentCanvas = canvasRef.current;
 
@@ -105,20 +106,48 @@ export default function AnimatedBackground() {
 
       if (!currentContext) return;
 
-      width = window.innerWidth;
-      height = window.innerHeight;
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+
+      // Evita redesenhar se as dimensões não mudaram.
+      if (newWidth === width && newHeight === height) return;
+
+      const oldWidth = width;
+      const oldHeight = height;
+
+      width = newWidth;
+      height = newHeight;
 
       pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
 
-      currentCanvas.width = Math.floor(width * pixelRatio);
-      currentCanvas.height = Math.floor(height * pixelRatio);
+      // Preserva a posição das partículas ao redimensionar.
+      if (particles.length > 0 && oldWidth > 0 && oldHeight > 0) {
+        const scaleX = width / oldWidth;
+        const scaleY = height / oldHeight;
+
+        for (const particle of particles) {
+          particle.x *= scaleX;
+          particle.y *= scaleY;
+
+          particle.x = Math.max(0, Math.min(width, particle.x));
+          particle.y = Math.max(0, Math.min(height, particle.y));
+        }
+      }
+
+      currentCanvas.width = Math.round(width * pixelRatio);
+      currentCanvas.height = Math.round(height * pixelRatio);
 
       currentCanvas.style.width = `${width}px`;
       currentCanvas.style.height = `${height}px`;
 
       currentContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      createParticles();
+      // Cria partículas apenas na primeira inicialização.
+      // Isso evita que a rede inteira salte de posição.
+      if (particles.length === 0) {
+        createParticles();
+      }
+
       drawFrame(false);
     }
 
