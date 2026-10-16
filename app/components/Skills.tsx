@@ -1,34 +1,27 @@
+"use client";
+
+import { Code2, Server, Database, Wrench, ArrowUpRight } from "lucide-react";
 
 const skillGroups = [
   {
     id: "01",
     title: "Frontend",
-    description:
-      "Interfaces modernas, responsivas e experiências web.",
-    code: "UI / CLIENT",
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "JavaScript",
-      "HTML",
-      "CSS",
-    ],
+    description: "Interfaces modernas, responsivas e acessíveis.",
+    icon: Code2,
+    skills: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS"],
   },
   {
     id: "02",
     title: "Backend",
-    description:
-      "Lógica de negócio, APIs e processamento de dados.",
-    code: "SERVER / API",
+    description: "APIs, regras de negócio e processamento de dados.",
+    icon: Server,
     skills: ["Node.js", "APIs REST"],
   },
   {
     id: "03",
-    title: "Ferramentas",
-    description:
-      "Ferramentas para desenvolvimento e organização de código.",
-    code: "DEV / TOOLS",
+    title: "Ferramentas & Dados",
+    description: "Versionamento, consultas e organização de código.",
+    icon: Database,
     skills: ["Git", "GitHub", "SQL"],
   },
 ];
@@ -37,81 +30,125 @@ export default function Skills() {
   return (
     <section
       id="habilidades"
-      className="mx-auto w-full max-w-6xl scroll-mt-8 px-6 py-20"
+      className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-20 sm:py-24"
     >
       {/* Cabeçalho */}
-      <div className="max-w-2xl">
-        <p className="font-mono text-sm uppercase tracking-[0.2em] text-lime-400">
-          Conhecimentos técnicos
-        </p>
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div className="max-w-2xl">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-px w-8 bg-lime-400" />
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-lime-400">
+              Conhecimentos técnicos
+            </p>
+          </div>
 
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Tecnologias que utilizo
-        </h2>
+          <h2 className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-4xl">
+            Tecnologias que utilizo
+          </h2>
 
-        <p className="mt-5 leading-7 text-zinc-400">
-          Ferramentas e tecnologias que fazem parte da minha
-          jornada de desenvolvimento e dos projetos que construo.
-        </p>
+          <p className="mt-4 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base">
+            Ferramentas que utilizo para desenvolver interfaces, construir
+            aplicações e resolver problemas com código.
+          </p>
+        </div>
+
+        <a
+          href="https://github.com/saimon-rocha"
+          target="_blank"
+          rel="noreferrer"
+          className="group inline-flex w-fit items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-3 text-sm font-medium text-zinc-200 transition hover:border-lime-400/40 hover:text-lime-300"
+        >
+          <Code2 size={18} />
+          Meu GitHub
+          <ArrowUpRight size={16} />
+        </a>
       </div>
 
-      {/* Cards de habilidades */}
-      <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((group) => (
-          <article
-            key={group.id}
-            className="group relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-lime-400/40 hover:bg-zinc-900/60"
-          >
-            {/* Detalhe decorativo */}
-            <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full border-b border-l border-zinc-800/70 bg-lime-400/[0.03] transition-colors group-hover:bg-lime-400/[0.06]" />
+      {/* Categorias */}
+      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {skillGroups.map((group) => {
+          const Icon = group.icon;
 
-            {/* Identificação */}
-            <div className="relative flex items-center justify-between">
-              <span className="font-mono text-xs tracking-widest text-lime-400">
-                MODULE_{group.id}
-              </span>
+          return (
+            <article
+              key={group.id}
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-800/90 bg-zinc-950/70 p-5 transition duration-300 hover:-translate-y-1 hover:border-lime-400/30 hover:bg-zinc-900/70 sm:p-6"
+            >
+              {/* Brilho discreto */}
+              <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-lime-400/[0.04] blur-2xl transition group-hover:bg-lime-400/[0.09]" />
 
-              <span className="rounded-md border border-zinc-800 bg-zinc-900 px-2 py-1 font-mono text-[10px] text-zinc-500">
-                {group.code}
-              </span>
-            </div>
+              <div className="relative flex items-start justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-lime-400/15 bg-lime-400/[0.07] text-lime-400 transition group-hover:border-lime-400/30 group-hover:bg-lime-400/10">
+                  <Icon size={21} strokeWidth={1.7} />
+                </div>
 
-            {/* Título e descrição */}
-            <div className="relative mt-8">
-              <h3 className="text-xl font-semibold tracking-tight text-zinc-100 transition-colors group-hover:text-lime-300">
-                {group.title}
-              </h3>
-
-              <p className="mt-3 min-h-14 text-sm leading-6 text-zinc-400">
-                {group.description}
-              </p>
-            </div>
-
-            {/* Separador */}
-            <div className="my-6 h-px bg-zinc-800 transition-colors group-hover:bg-lime-400/20" />
-
-            {/* Tecnologias */}
-            <div className="flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-2 text-sm text-zinc-300 transition-colors hover:border-lime-400/30 hover:text-lime-300"
-                >
-                  {skill}
+                <span className="font-mono text-xs text-zinc-600">
+                  {group.id}
                 </span>
-              ))}
-            </div>
+              </div>
 
-            {/* Rodapé do card */}
-            <div className="mt-8 flex items-center gap-2 border-t border-zinc-800/70 pt-4">
-              <span className="h-1.5 w-1.5 rounded-full bg-lime-400" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500">
+              <div className="relative mt-6">
+                <h3 className="text-lg font-semibold tracking-tight text-zinc-100">
+                  {group.title}
+                </h3>
+
+                <p className="mt-2 min-h-12 text-sm leading-6 text-zinc-400">
+                  {group.description}
+                </p>
+              </div>
+
+              <div className="my-5 h-px bg-zinc-800/80" />
+
+              <div className="relative flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-300 transition hover:border-lime-400/30 hover:text-lime-300 sm:text-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-auto flex items-center gap-2 pt-6 text-xs text-zinc-500">
+                <span className="h-1.5 w-1.5 rounded-full bg-lime-400" />
                 Área de conhecimento
-              </span>
-            </div>
-          </article>
-        ))}
+              </div>
+            </article>
+          );
+        })}
       </div>
+
+      {/* Chamada para conhecer os projetos */}
+      <a
+        href="https://github.com/saimon-rocha"
+        target="_blank"
+        rel="noreferrer"
+        className="group mt-6 flex flex-col gap-4 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 transition hover:border-lime-400/30 sm:flex-row sm:items-center sm:justify-between sm:p-6"
+      >
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-zinc-800 text-zinc-200 transition group-hover:text-lime-400">
+            <Wrench size={21} />
+          </div>
+
+          <div>
+            <h3 className="font-medium text-zinc-100">
+              Quer ver essas tecnologias na prática?
+            </h3>
+            <p className="mt-1 text-sm text-zinc-400">
+              Explore meus projetos, repositórios e código no GitHub.
+            </p>
+          </div>
+        </div>
+
+        <span className="inline-flex items-center gap-2 text-sm font-medium text-lime-400">
+          Explorar projetos
+          <ArrowUpRight
+            size={17}
+            className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
+        </span>
+      </a>
     </section>
   );
 }
