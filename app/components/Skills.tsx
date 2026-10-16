@@ -51,17 +51,6 @@ export default function Skills() {
             aplicações e resolver problemas com código.
           </p>
         </div>
-
-        <a
-          href="https://github.com/saimon-rocha"
-          target="_blank"
-          rel="noreferrer"
-          className="group inline-flex w-fit items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-3 text-sm font-medium text-zinc-200 transition hover:border-lime-400/40 hover:text-lime-300"
-        >
-          <Code2 size={18} />
-          Meu GitHub
-          <ArrowUpRight size={16} />
-        </a>
       </div>
 
       {/* Categorias */}
