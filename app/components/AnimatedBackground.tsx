@@ -277,15 +277,23 @@ export default function AnimatedBackground() {
 
     // Atualiza a posição desejada do mouse ou do dedo.
     function handlePointerMove(event: PointerEvent) {
+      // Ignora movimentos se o usuário preferir movimento reduzido.
+      if (reducedMotion.matches) return;
+
+      // No mobile, só reage a interações por toque.
+      // No desktop, continua acompanhando o mouse normalmente.
+      if (event.pointerType === "touch") {
+        pointer.isTouch = true;
+      } else if (event.pointerType === "mouse") {
+        pointer.isTouch = false;
+      }
+
+      // Atualiza o destino do brilho sem reposicionar a rede.
       pointer.targetX = event.clientX;
       pointer.targetY = event.clientY;
-
-      // O tipo do ponteiro informa se a interação veio de um toque.
-      pointer.isTouch = event.pointerType === "touch";
       pointer.active = true;
 
-      // Na primeira interação, posiciona o cursor imediatamente.
-      // Isso evita uma transição inicial a partir do canto da tela.
+      // Inicializa a posição apenas na primeira interação.
       if (pointer.x < 0 || pointer.y < 0) {
         pointer.x = event.clientX;
         pointer.y = event.clientY;
