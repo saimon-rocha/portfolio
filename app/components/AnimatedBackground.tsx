@@ -1,4 +1,3 @@
-
 "use client";
 
 // useEffect permite executar código que depende do navegador.
@@ -50,9 +49,7 @@ export default function AnimatedBackground() {
     let animationFrame = 0;
 
     // Detecta se o usuário prefere movimento reduzido no sistema.
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     // Cores RGB: verde-limão e azul-ciano.
     const colors = ["163, 230, 53", "56, 189, 248"];
@@ -100,27 +97,28 @@ export default function AnimatedBackground() {
 
     // Ajusta o canvas quando a janela muda de tamanho.
     function resizeCanvas() {
+      const currentCanvas = canvasRef.current;
+
+      if (!currentCanvas) return;
+
+      const currentContext = currentCanvas.getContext("2d");
+
+      if (!currentContext) return;
+
       width = window.innerWidth;
       height = window.innerHeight;
 
-      // Limita o fator de escala para controlar o custo de renderização.
       pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
 
-      // Define a resolução interna do canvas.
-      canvas.width = Math.floor(width * pixelRatio);
-      canvas.height = Math.floor(height * pixelRatio);
+      currentCanvas.width = Math.floor(width * pixelRatio);
+      currentCanvas.height = Math.floor(height * pixelRatio);
 
-      // Define o tamanho visual do canvas em pixels CSS.
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      currentCanvas.style.width = `${width}px`;
+      currentCanvas.style.height = `${height}px`;
 
-      // Ajusta o sistema de coordenadas para telas de alta densidade.
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      currentContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
-      // Recria as partículas para preencher a nova área.
       createParticles();
-
-      // Desenha um quadro sem movimentar as partículas.
       drawFrame(false);
     }
 
@@ -164,7 +162,7 @@ export default function AnimatedBackground() {
           0,
           pointer.x,
           pointer.y,
-          150
+          150,
         );
 
         glow.addColorStop(0, "rgba(163, 230, 53, 0.09)");
@@ -173,12 +171,7 @@ export default function AnimatedBackground() {
 
         // Pinta a área do brilho usando o gradiente criado.
         context.fillStyle = glow;
-        context.fillRect(
-          pointer.x - 150,
-          pointer.y - 150,
-          300,
-          300
-        );
+        context.fillRect(pointer.x - 150, pointer.y - 150, 300, 300);
       }
 
       // Percorre cada partícula para procurar outras próximas.
@@ -201,8 +194,7 @@ export default function AnimatedBackground() {
           if (distance >= connectionDistance) continue;
 
           // Linhas mais próximas ficam mais visíveis.
-          const opacity =
-            (1 - distance / connectionDistance) * 0.24;
+          const opacity = (1 - distance / connectionDistance) * 0.24;
 
           // Desenha uma linha ligando os dois pontos.
           context.beginPath();
@@ -242,13 +234,7 @@ export default function AnimatedBackground() {
         context.beginPath();
 
         // Cria um círculo completo na posição da partícula.
-        context.arc(
-          particle.x,
-          particle.y,
-          particle.radius,
-          0,
-          Math.PI * 2
-        );
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
 
         // Define a cor preenchida do ponto.
         context.fillStyle = `rgba(${particle.color}, 0.9)`;
@@ -356,10 +342,7 @@ export default function AnimatedBackground() {
   // aria-hidden evita que o efeito visual seja anunciado como conteúdo.
   return (
     <div className="site-background" aria-hidden="true">
-      <canvas
-        ref={canvasRef}
-        className="site-background__canvas"
-      />
+      <canvas ref={canvasRef} className="site-background__canvas" />
     </div>
   );
 }
